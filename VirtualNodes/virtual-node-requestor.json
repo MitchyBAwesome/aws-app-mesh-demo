@@ -1,0 +1,22 @@
+{
+    "meshName": "gophermesh",
+    "spec": {
+      "backends": [
+        "distributor.gophers.local"
+      ],
+      "listeners": [
+        {
+          "portMapping": {
+            "port": 80,
+            "protocol": "http"
+          }
+        }
+      ],
+      "serviceDiscovery": {
+        "dns": {
+          "serviceName": "requester.gophers.local"
+        }
+      }
+    },
+    "virtualNodeName": "requester"
+  }

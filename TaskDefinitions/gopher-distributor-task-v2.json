@@ -1,0 +1,80 @@
+{
+    "family": "gopher-distributor",
+    "containerDefinitions": [
+        {
+            "name": "gopher-distributor",
+            "image": "mitchybgood/gopher-distributor:v2",
+            "cpu": 10,
+            "memory": 300,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "Tag",
+                    "value": "v1"
+                }
+            ]
+        },
+        {
+            "name": "envoy",
+            "image": "111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-envoy:v1.8.0.2-beta",
+            "essential": true,
+            "memoryReservation": 128,
+            "environment": [
+                {
+                  "name": "APPMESH_VIRTUAL_NODE_NAME",
+                  "value": "mesh/gophermesh/virtualNode/distributorV2"
+                },
+                {
+                  "name": "ENVOY_LOG_LEVEL",
+                  "value": "info"
+                }
+            ],
+            "user": "1337"
+        },
+        {
+            "name": "proxyinit",
+            "image": "111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-proxy-route-manager:latest",
+            "essential": false,
+            "memoryReservation": 128,
+            "environment": [
+                {
+                    "name": "APPMESH_START_ENABLED",
+                    "value": "1"
+                },
+                {
+                  "name": "APPMESH_IGNORE_UID",
+                  "value": "1337"
+                },
+                {
+                  "name": "APPMESH_ENVOY_INGRESS_PORT",
+                  "value": "15000"
+                },
+                {
+                  "name": "APPMESH_ENVOY_EGRESS_PORT",
+                  "value": "15001"
+                },
+                {
+                  "name": "APPMESH_APP_PORTS",
+                  "value": "80"
+                },
+                {
+                  "name": "APPMESH_EGRESS_IGNORED_IP",
+                  "value": "169.254.169.254,169.254.170.2"
+                }
+            ],
+            "linuxParameters": {
+                "capabilities": {
+                    "add": [
+                        "NET_ADMIN"
+                    ]
+                }
+            }
+        }
+    ]
+}

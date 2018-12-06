@@ -1,0 +1,4 @@
+*.swp
+cfn-output.json
+*.pyc
+*.DS_Store

@@ -1,0 +1,9 @@
+{
+    "meshName": "gophermesh",
+    "spec": {
+      "serviceNames": [
+        "requester.gophers.local"
+      ]
+    },
+    "virtualRouterName": "requester"
+  }

@@ -1,0 +1,20 @@
+{
+    "meshName": "gophermesh",
+    "routeName": "requester-route",
+    "spec": {
+      "httpRoute": {
+        "action": {
+          "weightedTargets": [
+            {
+              "virtualNode": "requester",
+              "weight": 90
+            }
+          ]
+        },
+        "match": {
+          "prefix": "/"
+        }
+      }
+    },
+    "virtualRouterName": "requester"
+  }
