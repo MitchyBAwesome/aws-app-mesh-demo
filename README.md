@@ -12,6 +12,12 @@ Firstly, we have the **Mesh**. This is the logical boundary for network traffic 
 
 This is a high-level overview of the different 'bits' that make up an App Mesh deployment. As we go through this post, I'll demonstrate how each of these components fits together to simplify the management of complex micro-service application architectures.
 
+## What exactly are we going to build?
+
+Great question! To demonstrate the value of a Service Mesh, and how specifically we setup and configure App Mesh, I am going to deploy a 2 microserice application.
+
+The 2 microservices are 1) the **Requester** and 2) the **distributor**. I will then deploy a new version of the **distributor** and we'll see how App Mesh allows us to do do weighted distribution of traffic between V1 and V2 of the service.
+
 ## Environment Setup
 
 Before we get started, we're going to need a few pre-requisites. 
@@ -37,10 +43,20 @@ aws appmesh create-mesh --mesh-name gophermesh --region us-east-1
 aws appmesh create-virtual-node --cli-input-json file://./VirtualNodes/virtual-node-requestor.json --region us-east-1
 </pre>
 
-Check out virtual node created correctly
-
 <pre>
 aws appmesh list-virtual-nodes --mesh-name gophermesh --region us-east-1
+</pre>
+
+## Create a Virtual Node for the Gopher Distributor V1
+
+<pre>
+aws appmesh create-virtual-node --cli-input-json file://./VirtualNodes/virtual-node-distributor-v1.json --region us-east-1
+</pre>
+
+## Create a Virtual Node for the Gopher Distributor V2
+
+<pre>
+aws appmesh create-virtual-node --cli-input-json file://./VirtualNodes/virtual-node-distributor-v2.json --region us-east-1
 </pre>
 
 ## Create a Virtual Router for the Gopher Requester
