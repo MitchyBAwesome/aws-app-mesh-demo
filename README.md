@@ -40,35 +40,46 @@ aws appmesh create-mesh --mesh-name gophermesh --region us-east-1
 ## Create a Virtual Node for the Gopher Requester
 
 <pre>
-aws appmesh create-virtual-node --cli-input-json file://./VirtualNodes/virtual-node-requestor.json --region us-east-1
+aws appmesh create-virtual-node \
+--cli-input-json file://./VirtualNodes/virtual-node-requestor.json \
+--region us-east-1
 </pre>
 
 <pre>
-aws appmesh list-virtual-nodes --mesh-name gophermesh --region us-east-1
+aws appmesh list-virtual-nodes \
+--mesh-name gophermesh \
+--region us-east-1
 </pre>
 
 ## Create a Virtual Node for the Gopher Distributor V1
 
 <pre>
-aws appmesh create-virtual-node --cli-input-json file://./VirtualNodes/virtual-node-distributor-v1.json --region us-east-1
+aws appmesh create-virtual-node \
+--cli-input-json file://./VirtualNodes/virtual-node-distributor-v1.json \
+--region us-east-1
 </pre>
 
 ## Create a Virtual Node for the Gopher Distributor V2
 
 <pre>
-aws appmesh create-virtual-node --cli-input-json file://./VirtualNodes/virtual-node-distributor-v2.json --region us-east-1
+aws appmesh create-virtual-node \
+--cli-input-json file://./VirtualNodes/virtual-node-distributor-v2.json \
+--region us-east-1
 </pre>
 
 ## Create a Virtual Router for the Gopher Requester
 
 <pre>
-aws appmesh create-virtual-router --cli-input-json file://./VirtualRouter/virtual-router-requester.json --region us-east-1
+aws appmesh create-virtual-router \
+--cli-input-json file://./VirtualRouter/virtual-router-requester.json \
+--region us-east-1
 </pre>
 
 Check that our virtual router created correctly
 
 <pre>
-aws appmesh list-virtual-routers --mesh-name gophermesh --region us-east-1
+aws appmesh list-virtual-routers \
+--mesh-name gophermesh --region us-east-1
 </pre>
 
 ## Registering a Task Defintiion
