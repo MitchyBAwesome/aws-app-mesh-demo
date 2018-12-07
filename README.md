@@ -82,10 +82,56 @@ aws appmesh list-virtual-routers \
 --mesh-name gophermesh --region us-east-1
 </pre>
 
-## Registering a Task Defintiion
+## Create A Route for Gopher Requester
+
+<pre>
+aws appmesh create-route \
+--mesh-name gophermesh \
+--cli-input-json file://./VirtualRoutes/virtual-routes-requester.json
+</pre>
+
+## Create A Route for Gopher Distributor
+
+<pre>
+aws appmesh create-route \
+--mesh-name gophermesh \
+--cli-input-json file://./VirtualRoutes/virtual-routes-distributor.json
+</pre>
+
+## Registering a Task Defintiion for the Gopher Requester
 
 <pre>
 aws ecs register-task-definition \
---cli-input-json file://./TaskDefinitions/gopher-requester-task \
+--cli-input-json file://./TaskDefinitions/gopher-requester-task.json \
+--query 'taskDefinition.taskDefinitionArn'
+</pre>
+
+
+## Registering a Task Defintiion for the Gopher Distributor v1
+
+<pre>
+aws ecs register-task-definition \
+--cli-input-json file://./TaskDefinitions/gopher-distributor-task-v1.json \
+--query 'taskDefinition.taskDefinitionArn'
+</pre>
+
+Note the version of the task (3)
+
+## Registering a Task Defintiion for the Gopher Distributor v2
+
+<pre>
+aws ecs register-task-definition \
+--cli-input-json file://./TaskDefinitions/gopher-distributor-task-v2.json \
+--query 'taskDefinition.taskDefinitionArn'
+</pre>
+
+Note the version tag of the task (4)
+
+
+## Registering a Task Defintiion for the Gopher Requester
+
+<pre>
+aws ecs register-task-definition \
+--cli-input-json file://./TaskDefinitions/gopher-requester-task.json \
 --region ${REGION} --query 'taskDefinition.taskDefinitionArn'
 </pre>
